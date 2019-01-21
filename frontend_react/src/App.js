@@ -59,16 +59,16 @@ class CreateGrid extends Component {
 
     this.state = {};
     this.moduleName = this.props.module;
-
-    this.state[this.moduleName] = [];
-    this.state[this.moduleName].objKeys = [];
-    this.state[this.moduleName].data = [];
+    this.state[this.moduleName] = {
+      objKeys: [],
+      data: []
+    };
   }
 
   componentDidMount() {
 
     let data = {};
-    data[this.moduleName] = {};
+    
 
     axios.get(API_URL + this.moduleName).then(res => {
 
@@ -87,8 +87,10 @@ class CreateGrid extends Component {
         objKeys.push("updatedAt");
       }
 
-      data[this.moduleName].objKeys = objKeys;
-      data[this.moduleName].data = res.data;
+      data[this.moduleName] = {
+        objKeys: objKeys,
+        data: res.data
+      };
 
       this.setState(data);
     });
