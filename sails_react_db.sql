@@ -1,0 +1,70 @@
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fullname` VARCHAR(150) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  `cpf` VARCHAR(45) NOT NULL,
+  `createdAt` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `provider` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fullname` VARCHAR(150) NOT NULL,
+  `address` VARCHAR(300) NOT NULL,
+  `phone` VARCHAR(45) NOT NULL,
+  `cpf` VARCHAR(45) NOT NULL,
+  `createdAt` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(150) NOT NULL,
+  `description` VARCHAR(300) NOT NULL,
+  `brand` VARCHAR(45) NOT NULL,
+  `entryDate` DATETIME NOT NULL,
+  `expireDate` DATETIME NOT NULL,
+  `value` VARCHAR(45) NOT NULL,
+  `qty` INT NOT NULL,
+  `createdAt` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `product_provider` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `productId` INT NOT NULL,
+  `providerId` INT NOT NULL,
+  `createdAt` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  INDEX `productIdx` (`productId` ASC) INVISIBLE,
+  INDEX `providerIdx` (`providerId` ASC) VISIBLE,
+  CONSTRAINT `productId`
+    FOREIGN KEY (`productId`)
+    REFERENCES `product` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `providerId`
+    FOREIGN KEY (`providerId`)
+    REFERENCES `provider` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `exchange` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `productId` INT NOT NULL,
+  `type` CHAR(1) NOT NULL,
+  `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `qty` INT NOT NULL,
+  `createdAt` DATETIME NULL,
+  `updatedAt` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
