@@ -76,12 +76,15 @@ class CreateGrid extends Component {
         
       if (res.data.length > 0) {
         
+        // Reordenando chaves para manter sempre o ID como primeira coluna, e createdAt/updatedAt no final do grid
         objKeys = Object.keys(res.data[0]);
 
+        // Remove da lista
         objKeys.splice(objKeys.indexOf("id") , 1);
         objKeys.splice(objKeys.indexOf("createdAt") , 1);
         objKeys.splice(objKeys.indexOf("updatedAt") , 1);
 
+        // Insere no início e no fim da lista
         objKeys.unshift("id");
         objKeys.push("createdAt");
         objKeys.push("updatedAt");
@@ -101,8 +104,6 @@ class CreateGrid extends Component {
       <div>
 
         <h1>{this.props.modtitle}</h1>
-
-        <CreateButton />
 
         <Table striped bordered condensed hover>
           <thead>
@@ -128,21 +129,6 @@ class CreateGrid extends Component {
     );
   }
 }
-
-class CreateButton extends Component {
-  constructor (props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <Link to="/user/create" className="btn btn-primary pull-left" style={{ margin: "15px"}} >Criar Usuário</Link>
-      </div>
-    );
-  }
-}
-
 
 class UsersPage extends Component {
 

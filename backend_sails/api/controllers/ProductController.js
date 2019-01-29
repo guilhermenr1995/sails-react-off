@@ -10,9 +10,7 @@ module.exports = {
 
         let product = req.allParams();
         let messages = [];
-
         
-    
         if (product.id !== undefined) {
           messages.push("Produto duplicado!");
         }
